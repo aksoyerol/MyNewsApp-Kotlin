@@ -1,7 +1,7 @@
 package com.erolaksoy.mynewsapp.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.erolaksoy.mynewsapp.R
 
 class MainActivity : AppCompatActivity() {

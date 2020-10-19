@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/page_1"
-        android:title="Page 1"
+        android:title="News"
         android:icon="@drawable/ic_archive"/>
     <item
         android:id="@+id/page_2"
@@ -12,4 +12,9 @@
         android:id="@+id/page_3"
         android:title="Page 3"
         android:icon="@drawable/ic_notification"/>
+
+    <item
+        android:id="@+id/page_4"
+        android:title="Page 4"
+        android:icon="@drawable/ic_content"/>
 </menu>
