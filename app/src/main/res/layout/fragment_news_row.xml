@@ -2,17 +2,24 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="article"
+            type="com.erolaksoy.mynewsapp.models.Article" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="4dp">
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="2dp"
+            android:elevation="10dp"
+            android:layout_marginBottom="2dp"
             app:cardPreventCornerOverlap="true">
 
             <RelativeLayout
@@ -23,34 +30,37 @@
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
+                    android:maxWidth="150dp"
                     android:adjustViewBounds="true"
+                    app:bind_image="@{article.urlToImage}"
                     android:elevation="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background" />
+                   />
 
                 <LinearLayout
                     android:id="@+id/content_container"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
+                    android:layout_marginStart="1dp"
                     android:layout_toEndOf="@+id/imageView"
-                    android:gravity="top"
+                    android:gravity="top|left"
                     android:orientation="vertical"
                     android:padding="5dp">
 
                     <TextView
                         android:id="@+id/txtTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elevation="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
-                        android:textColor="@color/black" />
+                        android:textColor="@color/black"
+                        app:bind_article_title="@{article.title}" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignBottom="@+id/imageView"
                     android:layout_alignParentBottom="@+id/content_container"
                     android:layout_toEndOf="@id/imageView"
@@ -66,7 +76,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_weight="3"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Erol Aksoy" />
+                        android:text="Erol Aksoy"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
