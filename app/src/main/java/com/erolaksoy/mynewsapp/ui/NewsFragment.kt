@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.erolaksoy.mynewsapp.adapters.NewsFeedAdapter
 import com.erolaksoy.mynewsapp.adapters.OnClickListener
 import com.erolaksoy.mynewsapp.databinding.FragmentNewsBinding
@@ -25,11 +26,9 @@ class NewsFragment : Fragment() {
     ): View? {
 
         val binding: FragmentNewsBinding = FragmentNewsBinding.inflate(inflater, container, false)
-
         binding.lifecycleOwner = this
         val adapter = NewsFeedAdapter(OnClickListener {
-            Toast.makeText(requireContext(), "Clicked item Id ${it.publishedAt}", Toast.LENGTH_LONG)
-                .show()
+            viewModel.navigateToDetailWithArticle.value = it
         })
         binding.newsRecyclerView.adapter = adapter
 
@@ -39,6 +38,15 @@ class NewsFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToDetailWithArticle.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                val action = NewsFragmentDirections.actionNewsPageToDetailFragment(it)
+                findNavController().navigate(action)
+                viewModel.navigateToDetailWithArticle.value = null
+            }
+        })
         return binding.root
     }
+
+
 }

@@ -1,17 +1,24 @@
 package com.erolaksoy.mynewsapp.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.erolaksoy.mynewsapp.models.Article
 import java.lang.IllegalArgumentException
 
-class DetailViewModel(article : Article) : ViewModel() {
+class DetailViewModel(val article: Article) : ViewModel() {
 
+    val incomingArticle = MutableLiveData<Article>()
+
+    init {
+        incomingArticle.value = article
+    }
 }
 
-class DetailViewModelFactory(private val article : Article) : ViewModelProvider.Factory{
+@Suppress("UNCHECKED_CAST")
+class DetailViewModelFactory(private val article: Article) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if(modelClass.isAssignableFrom(DetailViewModel::class.java)){
+        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(article) as T
         }
         throw IllegalArgumentException("HATAAAAAA DetailViewModelFactory")

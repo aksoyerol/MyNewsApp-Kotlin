@@ -15,6 +15,7 @@ class NewsViewModel : ViewModel() {
     val newsList: LiveData<List<Article>>
         get() = _newsList
 
+    var navigateToDetailWithArticle = MutableLiveData<Article>()
 
     init {
         getDataFromRepo()
