@@ -11,15 +11,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.erolaksoy.mynewsapp.databinding.FragmentNewsRowBinding
 import com.erolaksoy.mynewsapp.models.Article
 
-class NewsFeedAdapter : ListAdapter<Article, NewsFeedAdapter.ViewHolder>(MyDiffUtil()) {
+class NewsFeedAdapter(val clickListener: OnClickListener) :
+    ListAdapter<Article, NewsFeedAdapter.ViewHolder>(MyDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(FragmentNewsRowBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(
+            FragmentNewsRowBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
+
+        holder.itemView.setOnClickListener {
+            clickListener.onClick(item)
+        }
+
         holder.binding(item)
+
     }
 
     class ViewHolder(private val binding: FragmentNewsRowBinding) :
@@ -40,4 +53,8 @@ class MyDiffUtil : DiffUtil.ItemCallback<Article>() {
     override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
         return oldItem.url == newItem.url
     }
+}
+
+class OnClickListener(val clickListener: (article: Article) -> Unit) {
+    fun onClick(article: Article) = clickListener(article)
 }

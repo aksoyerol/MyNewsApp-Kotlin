@@ -8,10 +8,21 @@
     <fragment
         android:id="@+id/news_page"
         android:name="com.erolaksoy.mynewsapp.ui.NewsFragment"
-        android:label="NewsFragment" />
+        android:label="NewsFragment" >
+        <action
+            android:id="@+id/action_news_page_to_detailFragment"
+            app:destination="@id/detailFragment"
+            app:popUpTo="@id/news_page"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/page_2"
         android:name="com.erolaksoy.mynewsapp.ui.SecondFragment"
         android:label="fragment_second"
         tools:layout="@layout/fragment_second" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.erolaksoy.mynewsapp.ui.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

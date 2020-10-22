@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class NewsRepository {
-
     suspend fun getDataFromApi() : List<Article> {
         return withContext(Dispatchers.IO) {
             NewsApiServiceBuilder.newsApiService.getAllNews().asArticleList()

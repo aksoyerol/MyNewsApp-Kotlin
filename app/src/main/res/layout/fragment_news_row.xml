@@ -18,8 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:elevation="10dp"
             android:layout_marginBottom="2dp"
+            android:elevation="10dp"
             app:cardPreventCornerOverlap="true">
 
             <RelativeLayout
@@ -30,12 +30,12 @@
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="100dp"
-                    android:maxWidth="150dp"
                     android:adjustViewBounds="true"
-                    app:bind_image="@{article.urlToImage}"
                     android:elevation="5dp"
+                    android:maxWidth="150dp"
                     android:scaleType="centerCrop"
-                   />
+                    android:src="@drawable/ic_launcher_background"
+                    app:bind_image="@{article.urlToImage}" />
 
                 <LinearLayout
                     android:id="@+id/content_container"
@@ -51,8 +51,8 @@
                         android:id="@+id/txtTitle"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-
                         android:fontFamily="@font/poppins_medium"
+                        android:text="Content Title Area"
                         android:textColor="@color/black"
                         app:bind_article_title="@{article.title}" />
 
@@ -67,38 +67,45 @@
                     android:elevation="4dp"
                     android:orientation="horizontal"
                     android:padding="5dp"
-                    android:weightSum="8">
+                    android:weightSum="10">
 
                     <TextView
                         android:id="@+id/txtAuthor"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:layout_weight="3"
+                        android:layout_weight="6"
                         android:fontFamily="@font/poppins_medium"
-                        android:text="Erol Aksoy"/>
+                        android:maxHeight="28dp"
+                        android:text="@{article.author.toString()}"
+                        android:textSize="13sp" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5">
+                        android:layout_weight="4"
+                        android:weightSum="10">
 
                         <ImageView
                             android:id="@+id/calendar_icon"
-                            android:layout_width="20dp"
+                            android:layout_width="0dp"
                             android:layout_height="20dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="2"
-                            android:src="@drawable/ic_calendar_2" />
+                            android:layout_gravity="right"
+                            android:layout_weight="3"
+                            android:src="@drawable/ic_calendar_2"
+                            android:textAlignment="textStart" />
 
                         <TextView
                             android:id="@+id/txtPublishedDate"
-                            android:layout_width="wrap_content"
+                            bind_date="@{article.publishedAt}"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_weight="3"
+                            android:layout_gravity="start"
+                            android:layout_weight="7"
                             android:fontFamily="@font/poppins_medium"
-                            android:text="21.08.1999" />
+                            android:text="01.01.2020"
+                            android:textAlignment="textStart"
+                            android:textSize="13sp" />
                     </LinearLayout>
 
 

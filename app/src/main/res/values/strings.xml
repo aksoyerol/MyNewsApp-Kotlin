@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">MyNewsApp</string>
+    <string name="app_name">Once Upon a News</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
