@@ -1,10 +1,8 @@
 package com.erolaksoy.mynewsapp.ui
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.erolaksoy.mynewsapp.R
 import com.erolaksoy.mynewsapp.databinding.FragmentDetailBinding
@@ -17,6 +15,7 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         val binding = FragmentDetailBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         val application = requireActivity().application
@@ -25,6 +24,11 @@ class DetailFragment : Fragment() {
         val viewModel = ViewModelProvider(this, viewModelFactory).get(DetailViewModel::class.java)
         binding.viewModel = viewModel
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.detail_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
 }

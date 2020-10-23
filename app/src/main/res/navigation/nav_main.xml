@@ -23,8 +23,8 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.erolaksoy.mynewsapp.ui.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
+        android:label="Detail Fragment"
+        tools:layout="@layout/fragment_detail">
         <argument
             android:name="article"
             app:argType="com.erolaksoy.mynewsapp.models.Article" />

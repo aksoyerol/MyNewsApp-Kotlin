@@ -2,16 +2,17 @@ package com.erolaksoy.mynewsapp.adapters
 
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erolaksoy.mynewsapp.databinding.FragmentNewsRowBinding
 import com.erolaksoy.mynewsapp.models.Article
 
-class NewsFeedAdapter(val clickListener: OnClickListener) :
+class NewsFeedAdapter(
+    private val clickListener: OnClickListener,
+    private val longClickListener: OnLongClickListener
+) :
     ListAdapter<Article, NewsFeedAdapter.ViewHolder>(MyDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,6 +32,10 @@ class NewsFeedAdapter(val clickListener: OnClickListener) :
             clickListener.onClick(item)
         }
 
+        holder.itemView.setOnLongClickListener { view ->
+            longClickListener.onLongClick(item)
+            true
+        }
         holder.binding(item)
 
     }
@@ -57,4 +62,8 @@ class MyDiffUtil : DiffUtil.ItemCallback<Article>() {
 
 class OnClickListener(val clickListener: (article: Article) -> Unit) {
     fun onClick(article: Article) = clickListener(article)
+}
+
+class OnLongClickListener(val longClickListener: (article: Article) -> Unit) {
+    fun onLongClick(article: Article) = longClickListener(article)
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.erolaksoy.mynewsapp.enums.FeedLoadingStatus
 import com.erolaksoy.mynewsapp.models.Article
 import com.erolaksoy.mynewsapp.repository.NewsRepository
 import kotlinx.coroutines.launch
@@ -16,6 +17,7 @@ class NewsViewModel : ViewModel() {
         get() = _newsList
 
     var navigateToDetailWithArticle = MutableLiveData<Article>()
+    val loadingStatus = MutableLiveData<FeedLoadingStatus>()
 
     init {
         getDataFromRepo()
@@ -23,10 +25,13 @@ class NewsViewModel : ViewModel() {
 
     private fun getDataFromRepo() {
         viewModelScope.launch {
+            loadingStatus.value = FeedLoadingStatus.LOADING
             try {
                 _newsList.value = repo.getDataFromApi()
+                loadingStatus.value = FeedLoadingStatus.LOADED
             } catch (e: Exception) {
                 println("HATA ${e.localizedMessage}")
+                loadingStatus.value = FeedLoadingStatus.FAILED
             }
         }
     }

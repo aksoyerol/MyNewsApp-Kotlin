@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MyNewsApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="MyTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/charcoal</item>
-        <item name="colorPrimaryVariant">@color/persian_gray</item>
+        <item name="colorPrimaryVariant">@color/paletteAccentBlue</item>
         <item name="colorOnPrimary">@color/orange_yellow_crayola</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/sandy_brown</item>

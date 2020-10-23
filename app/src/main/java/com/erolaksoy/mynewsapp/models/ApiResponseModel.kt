@@ -2,10 +2,7 @@ package com.erolaksoy.mynewsapp.models
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
-
 
 data class ApiResponseModel(
     @Json(name = "status")
