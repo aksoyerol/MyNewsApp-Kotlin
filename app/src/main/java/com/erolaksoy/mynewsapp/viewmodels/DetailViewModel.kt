@@ -1,27 +1,49 @@
 package com.erolaksoy.mynewsapp.viewmodels
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import android.app.Application
+import androidx.lifecycle.*
+import com.erolaksoy.mynewsapp.database.NewsDatabase
+import com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb
 import com.erolaksoy.mynewsapp.models.Article
-import java.lang.IllegalArgumentException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DetailViewModel(val article: Article) : ViewModel() {
+class DetailViewModel(val article: ArticleDb, val app: Application) : AndroidViewModel(app) {
 
-    val incomingArticle = MutableLiveData<Article>()
+    val incomingArticle = MutableLiveData<ArticleDb>()
+    val database = NewsDatabase.getInstance(app.applicationContext)
 
     init {
         incomingArticle.value = article
     }
-}
 
-@Suppress("UNCHECKED_CAST")
-class DetailViewModelFactory(private val article: Article) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
-            return DetailViewModel(article) as T
+    fun saveToBookmark() {
+        if (!article.isBookmarked) {
+          viewModelScope.launch{
+              article.isBookmarked = true
+              addToBookmark(article)
+          }
         }
-        throw IllegalArgumentException("HATAAAAAA DetailViewModelFactory")
+    }
+
+    suspend fun addToBookmark(article : ArticleDb){
+        withContext(Dispatchers.IO){
+            database.newsDao.updateEntity(article)
+            println("calisti")
+        }
     }
 
 }
+
+@Suppress("UNCHECKED_CAST")
+class DetailViewModelFactory(private val article: ArticleDb, private val appContext: Application) :
+    ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            return DetailViewModel(article, appContext) as T
+        }
+        throw IllegalArgumentException("HATAAAAAA DetailViewModelFactory")
+    }
+}
+

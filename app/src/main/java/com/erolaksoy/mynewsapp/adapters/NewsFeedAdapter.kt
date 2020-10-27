@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb
 import com.erolaksoy.mynewsapp.databinding.FragmentNewsRowBinding
 import com.erolaksoy.mynewsapp.models.Article
 
@@ -13,7 +14,7 @@ class NewsFeedAdapter(
     private val clickListener: OnClickListener,
     private val longClickListener: OnLongClickListener
 ) :
-    ListAdapter<Article, NewsFeedAdapter.ViewHolder>(MyDiffUtil()) {
+    ListAdapter<ArticleDb, NewsFeedAdapter.ViewHolder>(MyDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -23,6 +24,10 @@ class NewsFeedAdapter(
                 false
             )
         )
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -43,27 +48,27 @@ class NewsFeedAdapter(
     class ViewHolder(private val binding: FragmentNewsRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun binding(article: Article) {
+        fun binding(article: ArticleDb) {
             binding.article = article
             binding.executePendingBindings()
         }
     }
 }
 
-class MyDiffUtil : DiffUtil.ItemCallback<Article>() {
-    override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+class MyDiffUtil : DiffUtil.ItemCallback<ArticleDb>() {
+    override fun areItemsTheSame(oldItem: ArticleDb, newItem: ArticleDb): Boolean {
         return oldItem == newItem
     }
 
-    override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+    override fun areContentsTheSame(oldItem: ArticleDb, newItem: ArticleDb): Boolean {
         return oldItem.url == newItem.url
     }
 }
 
-class OnClickListener(val clickListener: (article: Article) -> Unit) {
-    fun onClick(article: Article) = clickListener(article)
+class OnClickListener(val clickListener: (article: ArticleDb) -> Unit) {
+    fun onClick(article: ArticleDb) = clickListener(article)
 }
 
-class OnLongClickListener(val longClickListener: (article: Article) -> Unit) {
-    fun onLongClick(article: Article) = longClickListener(article)
+class OnLongClickListener(val longClickListener: (article: ArticleDb) -> Unit) {
+    fun onLongClick(article: ArticleDb) = longClickListener(article)
 }

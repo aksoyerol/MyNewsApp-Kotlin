@@ -11,7 +11,7 @@ private const val BASE_URL = "https://newsapi.org/v2/"
 private const val API_KEY = "1eee93a0cbe942039dde9491e9649435"
 
 interface NewsApiService {
-    @GET("everything?q=cnn&pageSize=90&apiKey=$API_KEY")
+    @GET("everything?q=bbc&pageSize=100&apiKey=$API_KEY")
     suspend fun getAllNews(): ApiResponseModel
 
     @GET("everything?")

@@ -13,7 +13,7 @@
             android:id="@+id/action_news_page_to_detailFragment"
             app:destination="@id/detailFragment"
             app:popUpTo="@id/news_page"
-            app:popUpToInclusive="false" />
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/page_2"
@@ -26,7 +26,11 @@
         android:label="Detail Fragment"
         tools:layout="@layout/fragment_detail">
         <argument
-            android:name="article"
-            app:argType="com.erolaksoy.mynewsapp.models.Article" />
+            android:name="articledb"
+            app:argType="com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb" />
     </fragment>
+    <fragment
+        android:id="@+id/bookmarkFragment"
+        android:name="com.erolaksoy.mynewsapp.ui.BookmarkFragment"
+        android:label="BookmarkFragment" />
 </navigation>

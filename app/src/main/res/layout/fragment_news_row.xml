@@ -5,7 +5,7 @@
     <data>
         <variable
             name="article"
-            type="com.erolaksoy.mynewsapp.models.Article" />
+            type="com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb" />
     </data>
 
     <LinearLayout

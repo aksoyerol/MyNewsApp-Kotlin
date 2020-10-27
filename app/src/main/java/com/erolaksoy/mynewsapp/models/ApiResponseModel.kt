@@ -17,7 +17,7 @@ data class ApiResponseModel(
 @Parcelize
 data class Article(
     @Json(name = "source")
-    val source: Source,
+    val source: Source?,
     @Json(name = "author")
     val author: String?,
     @Json(name = "title")

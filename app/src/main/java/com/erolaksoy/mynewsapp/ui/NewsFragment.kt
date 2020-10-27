@@ -13,20 +13,26 @@ import com.erolaksoy.mynewsapp.R
 import com.erolaksoy.mynewsapp.adapters.NewsFeedAdapter
 import com.erolaksoy.mynewsapp.adapters.OnClickListener
 import com.erolaksoy.mynewsapp.adapters.OnLongClickListener
+import com.erolaksoy.mynewsapp.database.databaseModels.Bookmark
 import com.erolaksoy.mynewsapp.databinding.FragmentNewsBinding
 import com.erolaksoy.mynewsapp.viewmodels.NewsViewModel
+import com.erolaksoy.mynewsapp.viewmodels.NewsViewModelFactory
 
 class NewsFragment : Fragment() {
 
-    private val viewModel: NewsViewModel by lazy {
-        ViewModelProvider(this).get(NewsViewModel::class.java)
+    private val viewModelFactory : NewsViewModelFactory by lazy{
+        NewsViewModelFactory(requireActivity().application)
     }
 
+    private val viewModel: NewsViewModel by lazy {
+        ViewModelProvider(this,viewModelFactory).get(NewsViewModel::class.java)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
+
         val binding: FragmentNewsBinding = FragmentNewsBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         val adapter = NewsFeedAdapter(OnClickListener {
@@ -42,7 +48,7 @@ class NewsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.newsRecyclerView.adapter = adapter
 
-        viewModel.newsList.observe(viewLifecycleOwner, Observer {
+        viewModel.data.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
