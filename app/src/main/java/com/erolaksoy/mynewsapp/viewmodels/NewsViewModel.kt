@@ -15,15 +15,15 @@ import java.lang.IllegalArgumentException
 class NewsViewModel(app: Application) : AndroidViewModel(app) {
     val database = NewsDatabase.getInstance(app.applicationContext)
     private val repo = NewsRepository(database)
-    val data= database.newsDao.getAll()
-
+    val data = database.newsDao.getAll()
 
 
     private val _newsList = MutableLiveData<List<Article>>()
     val newsList: LiveData<List<Article>>
         get() = _newsList
 
-    var navigateToDetailWithArticle = MutableLiveData<ArticleDb>()
+    val navigateToDetailWithArticle = MutableLiveData<ArticleDb>()
+
     val loadingStatus = MutableLiveData<FeedLoadingStatus>()
 
     init {

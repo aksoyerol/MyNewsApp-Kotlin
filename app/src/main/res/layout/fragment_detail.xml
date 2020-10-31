@@ -6,7 +6,6 @@
     tools:context=".ui.DetailFragment">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.erolaksoy.mynewsapp.viewmodels.DetailViewModel" />

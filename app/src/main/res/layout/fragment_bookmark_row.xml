@@ -1,29 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="articleDb"
             type="com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb" />
     </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        tools:ignore="MissingConstraints">
+        android:layout_margin="8dp">
 
-        <TextView
-            android:id="@+id/bookmarkRecyclerViewItemText"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="5dp"
-            android:text="@{articleDb.title}"
-            android:textSize="16sp" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!-- Media -->
+                <ImageView
+                    bind_image="@{articleDb.urlToImage}"
+                    android:layout_width="match_parent"
+                    android:layout_height="194dp"
+                    android:contentDescription="content_media"
+                    android:scaleType="centerCrop"
+                    android:src="@color/paletteAccentBlue" />
 
+                <ImageView
+                    android:id="@+id/imgBtnBookmark"
+                    android:layout_width="36dp"
+                    android:layout_gravity="right"
+                    android:layout_height="36dp"
+                    android:elevation="25dp"
+                    android:src="@drawable/bookmarked_black_image" />
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Title, secondary and supporting text -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{articleDb.title}"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textAppearance="?attr/textAppearanceHeadline6"
+                    tools:text="Content Title" />
+
+            </LinearLayout>
+
+            <!-- Buttons -->
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

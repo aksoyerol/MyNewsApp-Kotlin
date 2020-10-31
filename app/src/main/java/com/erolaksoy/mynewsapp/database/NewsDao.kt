@@ -9,7 +9,7 @@ import com.erolaksoy.mynewsapp.database.databaseModels.ArticlesAndBookmarks
 @Dao
 interface NewsDao {
 
-    @Query("SELECT * FROM article")
+    @Query("SELECT * FROM article ORDER BY publishedAt DESC")
     fun getAll(): LiveData<List<ArticleDb>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -18,7 +18,7 @@ interface NewsDao {
     @Update
     suspend fun updateEntity(updatedArticle : ArticleDb)
 
-    @Query("SELECT * FROM article WHERE isBookmarked=1")
+    @Query("SELECT * FROM article WHERE isBookmarked=1 ORDER BY publishedAt DESC")
     fun getAllBookmarkedEntity() : List<ArticleDb>
 
 

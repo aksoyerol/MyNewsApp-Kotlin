@@ -5,6 +5,7 @@
         android:id="@+id/savePost"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_bookmark_border_24"
-        app:showAsAction="always">
+        app:showAsAction="always"
+        android:title="Bookmark">
     </item>
 </menu>

@@ -12,14 +12,10 @@
         <action
             android:id="@+id/action_news_page_to_detailFragment"
             app:destination="@id/detailFragment"
+
             app:popUpTo="@id/news_page"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
-    <fragment
-        android:id="@+id/page_2"
-        android:name="com.erolaksoy.mynewsapp.ui.SecondFragment"
-        android:label="fragment_second"
-        tools:layout="@layout/fragment_second" />
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.erolaksoy.mynewsapp.ui.DetailFragment"
@@ -28,6 +24,9 @@
         <argument
             android:name="articledb"
             app:argType="com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb" />
+        <action
+            android:id="@+id/action_detailFragment_to_news_page"
+            app:destination="@id/news_page" />
     </fragment>
     <fragment
         android:id="@+id/bookmarkFragment"

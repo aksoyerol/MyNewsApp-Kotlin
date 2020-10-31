@@ -4,37 +4,38 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import com.erolaksoy.mynewsapp.R
 import com.erolaksoy.mynewsapp.adapters.NewsFeedAdapter
 import com.erolaksoy.mynewsapp.adapters.OnClickListener
 import com.erolaksoy.mynewsapp.adapters.OnLongClickListener
-import com.erolaksoy.mynewsapp.database.databaseModels.Bookmark
 import com.erolaksoy.mynewsapp.databinding.FragmentNewsBinding
 import com.erolaksoy.mynewsapp.viewmodels.NewsViewModel
 import com.erolaksoy.mynewsapp.viewmodels.NewsViewModelFactory
 
 class NewsFragment : Fragment() {
 
-    private val viewModelFactory : NewsViewModelFactory by lazy{
+    private val viewModelFactory: NewsViewModelFactory by lazy {
         NewsViewModelFactory(requireActivity().application)
     }
 
     private val viewModel: NewsViewModel by lazy {
-        ViewModelProvider(this,viewModelFactory).get(NewsViewModel::class.java)
+        ViewModelProvider(this, viewModelFactory).get(NewsViewModel::class.java)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         setHasOptionsMenu(true)
 
         val binding: FragmentNewsBinding = FragmentNewsBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+
         val adapter = NewsFeedAdapter(OnClickListener {
             viewModel.navigateToDetailWithArticle.value = it
         }, OnLongClickListener {
@@ -61,6 +62,7 @@ class NewsFragment : Fragment() {
                 viewModel.navigateToDetailWithArticle.value = null
             }
         })
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -70,7 +72,7 @@ class NewsFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
 //            R.id.red ->{
 //                Toast.makeText(requireContext(),"red click",Toast.LENGTH_LONG).show()
 //                item.isChecked = !item.isChecked

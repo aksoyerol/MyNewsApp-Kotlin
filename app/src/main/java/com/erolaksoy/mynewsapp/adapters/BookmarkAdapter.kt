@@ -1,7 +1,6 @@
 package com.erolaksoy.mynewsapp.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,25 +10,29 @@ import com.erolaksoy.mynewsapp.databinding.FragmentBookmarkBinding
 import com.erolaksoy.mynewsapp.databinding.FragmentBookmarkRowBinding
 
 
-class BookmarkAdapter() : ListAdapter<ArticleDb, BookmarkAdapter.ViewHolder>(BookmarkDiffUtil()) {
+class BookmarkAdapter(private val clickListener: BookmarkOnClickListener) :
+    ListAdapter<ArticleDb, BookmarkAdapter.ViewHolder>(BookmarkDiffUtil()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkAdapter.ViewHolder {
-       return ViewHolder(FragmentBookmarkRowBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+        return ViewHolder(FragmentBookmarkRowBinding.inflate(LayoutInflater.from(parent.context),
+            parent,
+            false))
     }
 
     override fun onBindViewHolder(holder: BookmarkAdapter.ViewHolder, position: Int) {
         val item = getItem(position)
+        clickListener.onClick(item)
         holder.bind(item)
     }
 
 
-    class ViewHolder(private val binding : FragmentBookmarkRowBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(article : ArticleDb){
+    class ViewHolder(private val binding: FragmentBookmarkRowBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(article: ArticleDb) {
             binding.articleDb = article
             binding.executePendingBindings()
         }
     }
-
 }
 
 class BookmarkDiffUtil : DiffUtil.ItemCallback<ArticleDb>() {
@@ -40,5 +43,8 @@ class BookmarkDiffUtil : DiffUtil.ItemCallback<ArticleDb>() {
     override fun areContentsTheSame(oldItem: ArticleDb, newItem: ArticleDb): Boolean {
         return oldItem.url == newItem.url
     }
+}
 
+class BookmarkOnClickListener(private val clickListener: (article: ArticleDb) -> Unit) {
+    fun onClick(article: ArticleDb) = clickListener(article)
 }

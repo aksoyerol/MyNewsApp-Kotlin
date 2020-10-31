@@ -18,17 +18,23 @@ class DetailViewModel(val article: ArticleDb, val app: Application) : AndroidVie
         incomingArticle.value = article
     }
 
+
     fun saveToBookmark() {
         if (!article.isBookmarked) {
-          viewModelScope.launch{
-              article.isBookmarked = true
-              addToBookmark(article)
-          }
+            viewModelScope.launch {
+                article.isBookmarked = true
+                addToBookmark(article)
+            }
+        } else {
+            viewModelScope.launch {
+                article.isBookmarked = false
+                addToBookmark(article)
+            }
         }
     }
 
-    suspend fun addToBookmark(article : ArticleDb){
-        withContext(Dispatchers.IO){
+    suspend fun addToBookmark(article: ArticleDb) {
+        withContext(Dispatchers.IO) {
             database.newsDao.updateEntity(article)
             println("calisti")
         }

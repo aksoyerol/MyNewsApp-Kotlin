@@ -2,19 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/news_page"
-        android:title="News"
-        android:icon="@drawable/ic_archive"/>
+        android:icon="@drawable/ic_archive"
+        android:title="News" />
     <item
         android:id="@+id/page_2"
-        android:title="Page 2"
-        android:icon="@drawable/ic_internet"/>
+        android:icon="@drawable/ic_internet"
+        android:title="Page 2" />
     <item
         android:id="@+id/bookmarkFragment"
-        android:title="Bookmarks"
-        android:icon="@drawable/ic_baseline_bookmark_border_24"/>
+        android:icon="@drawable/ic_baseline_bookmark_border_24"
+        android:title="Bookmarks" />
 
     <item
         android:id="@+id/page_4"
-        android:title="Page 4"
-        android:icon="@drawable/ic_content"/>
+        android:icon="@drawable/ic_content"
+        android:title="Page 4" />
+
+    <item
+        android:id="@+id/detailFragment"
+        android:enabled="false"
+        android:visible="false"/>
 </menu>
