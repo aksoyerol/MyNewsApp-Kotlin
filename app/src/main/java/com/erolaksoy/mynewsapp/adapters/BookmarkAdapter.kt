@@ -21,13 +21,14 @@ class BookmarkAdapter(private val clickListener: BookmarkOnClickListener) :
 
     override fun onBindViewHolder(holder: BookmarkAdapter.ViewHolder, position: Int) {
         val item = getItem(position)
-        clickListener.onClick(item)
+        holder.bookmarkImage.setOnClickListener { clickListener.onClick(item) }
         holder.bind(item)
     }
 
 
     class ViewHolder(private val binding: FragmentBookmarkRowBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val bookmarkImage= binding.imgBtnBookmark
         fun bind(article: ArticleDb) {
             binding.articleDb = article
             binding.executePendingBindings()

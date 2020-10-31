@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 
 class NewsRepository(private val database: NewsDatabase) {
 
-   //val data: LiveData<List<ArticleDb>> = database.newsDao.getAll()
+    //val data: LiveData<List<ArticleDb>> = database.newsDao.getAll()
 
     suspend fun getDataFromApi(): List<Article> {
         return withContext(Dispatchers.IO) {
@@ -25,6 +25,12 @@ class NewsRepository(private val database: NewsDatabase) {
         withContext(Dispatchers.IO) {
             val networkData = NewsApiServiceBuilder.newsApiService.getAllNews().asArticleList()
             database.newsDao.insertAll(networkData.asArticleDb())
+        }
+    }
+
+    suspend fun updateBookmarkEntity(articleDb: ArticleDb) {
+        return withContext(Dispatchers.Default) {
+            database.newsDao.updateEntity(articleDb)
         }
     }
 

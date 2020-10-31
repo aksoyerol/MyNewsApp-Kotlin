@@ -46,13 +46,13 @@ class DetailFragment : Fragment() {
 
 
 
-//    override fun onPrepareOptionsMenu(menu: Menu) {
-//        val item = menu.findItem(R.id.savePost)
-//        if (viewModel.article.isBookmarked) {
-//            item.setIcon(R.drawable.ic_baseline_bookmarkwhite_24)
-//        }
-//        super.onPrepareOptionsMenu(menu)
-//    }
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val item = menu.findItem(R.id.savePost)
+        if (viewModel.article.isBookmarked) {
+            item.setIcon(R.drawable.ic_baseline_bookmarkwhite_24)
+        }
+        super.onPrepareOptionsMenu(menu)
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="article"
             type="com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb" />
@@ -37,6 +39,7 @@
                     android:src="@drawable/ic_launcher_background"
                     app:bind_image="@{article.urlToImage}" />
 
+
                 <LinearLayout
                     android:id="@+id/content_container"
                     android:layout_width="match_parent"
@@ -44,18 +47,32 @@
                     android:layout_marginStart="1dp"
                     android:layout_toEndOf="@+id/imageView"
                     android:gravity="top|left"
-                    android:orientation="vertical"
-                    android:padding="5dp">
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:weightSum="10">
 
                     <TextView
                         android:id="@+id/txtTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="40dp"
+                        android:layout_weight="9"
                         android:fontFamily="@font/poppins_medium"
                         android:text="Content Title Area"
                         android:textColor="@color/black"
                         app:bind_article_title="@{article.title}" />
 
+
+                    <ImageView
+                        android:id="@+id/bookmarkImage"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/white"
+                        android:clickable="true"
+                        android:elevation="7dp"
+                        android:src="@drawable/bookmark_black_bordered"
+                        tools:src="@drawable/bookmark_black_bordered" />
+<!--                    android:src="@{article.isBookmarked ? @drawable/bookmarked_black_image : @drawable/bookmark_black_bordered}"-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -76,7 +93,7 @@
                         android:layout_marginStart="5dp"
                         android:layout_weight="6"
                         android:fontFamily="@font/poppins_medium"
-                        android:maxHeight="28dp"
+                        android:maxHeight="18dp"
                         android:text="@{article.author.toString()}"
                         android:textSize="13sp" />
 

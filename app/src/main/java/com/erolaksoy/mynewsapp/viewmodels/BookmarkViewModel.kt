@@ -2,12 +2,12 @@ package com.erolaksoy.mynewsapp.viewmodels
 
 import android.app.Application
 import android.util.Log
+import android.widget.ImageView
 import androidx.lifecycle.*
 import com.erolaksoy.mynewsapp.database.NewsDatabase
 import com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb
+import com.erolaksoy.mynewsapp.repository.NewsRepository
 import kotlinx.coroutines.launch
-import java.lang.Exception
-import java.lang.IllegalArgumentException
 
 class BookmarkViewModel(application: Application) : AndroidViewModel(application) {
     private val _bookmarkList = MutableLiveData<List<ArticleDb>>()
@@ -15,11 +15,10 @@ class BookmarkViewModel(application: Application) : AndroidViewModel(application
         get() = _bookmarkList
 
     val database = NewsDatabase.getInstance(application.applicationContext)
+    val repo = NewsRepository(database)
 
     init {
         getDataFromDb()
-        println(bookmarkList.value)
-
     }
 
     private fun getDataFromDb() {
@@ -31,6 +30,22 @@ class BookmarkViewModel(application: Application) : AndroidViewModel(application
             }
         }
     }
+
+    private fun updateBookmarkedArticle(articleDb: ArticleDb) {
+        viewModelScope.launch {
+            repo.updateBookmarkEntity(articleDb)
+            getDataFromDb()
+        }
+    }
+
+    fun onClickTheImgButton(articleDb: ArticleDb) {
+        println("clicked ${articleDb.isBookmarked}")
+        if (articleDb.isBookmarked) {
+            articleDb.isBookmarked = false
+            updateBookmarkedArticle(articleDb)
+        }
+    }
+
 
 }
 

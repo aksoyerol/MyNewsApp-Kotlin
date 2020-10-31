@@ -36,6 +36,22 @@ class NewsViewModel(app: Application) : AndroidViewModel(app) {
 
     }
 
+    fun updateBookmarkEntity(articleDb: ArticleDb) {
+        println("clicked ${articleDb.isBookmarked}")
+        viewModelScope.launch {
+            if (articleDb.isBookmarked) {
+                articleDb.isBookmarked = false
+                repo.updateBookmarkEntity(articleDb)
+                getDataFromRepos()
+            } else {
+                articleDb.isBookmarked = true
+                repo.updateBookmarkEntity(articleDb)
+                getDataFromRepos()
+            }
+
+        }
+    }
+
     private fun getDataFromRepo() {
         viewModelScope.launch {
             loadingStatus.value = FeedLoadingStatus.LOADING

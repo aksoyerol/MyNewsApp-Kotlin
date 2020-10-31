@@ -26,9 +26,11 @@ class BookmarkFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val binding = FragmentBookmarkBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
+
 
         val adapter = BookmarkAdapter(BookmarkOnClickListener {
+            println("adapter scope")
+            viewModel.onClickTheImgButton(it)
 
         })
 
@@ -38,7 +40,7 @@ class BookmarkFragment : Fragment() {
                 adapter.submitList(it)
             }
         })
-
+        binding.lifecycleOwner = this
         return binding.root
     }
 
