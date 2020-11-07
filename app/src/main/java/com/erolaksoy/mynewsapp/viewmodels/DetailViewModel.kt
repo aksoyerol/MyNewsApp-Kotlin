@@ -18,7 +18,6 @@ class DetailViewModel(val article: ArticleDb, val app: Application) : AndroidVie
         incomingArticle.value = article
     }
 
-
     fun saveToBookmark() {
         if (!article.isBookmarked) {
             viewModelScope.launch {

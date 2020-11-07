@@ -3,11 +3,11 @@
     <item
         android:id="@+id/news_page"
         android:icon="@drawable/ic_archive"
-        android:title="News" />
+        android:title="@string/navmenu_news_page" />
     <item
-        android:id="@+id/page_2"
+        android:id="@+id/categoryFragment"
         android:icon="@drawable/ic_internet"
-        android:title="Page 2" />
+        android:title="Categories" />
     <item
         android:id="@+id/bookmarkFragment"
         android:icon="@drawable/ic_baseline_bookmark_border_24"
@@ -15,8 +15,8 @@
 
     <item
         android:id="@+id/page_4"
-        android:icon="@drawable/ic_content"
-        android:title="Page 4" />
+        android:icon="@drawable/settings_icon"
+        android:title="@string/navmenu_settings_page" />
 
     <item
         android:id="@+id/detailFragment"

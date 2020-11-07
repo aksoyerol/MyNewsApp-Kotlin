@@ -1,12 +1,11 @@
 package com.erolaksoy.mynewsapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.erolaksoy.mynewsapp.R
 import com.erolaksoy.mynewsapp.databinding.FragmentDetailBinding
 import com.erolaksoy.mynewsapp.viewmodels.DetailViewModel
@@ -34,7 +33,7 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         //setHasOptionsMenu(true)
-
+        activity?.title = viewModel.article.author
         val binding = FragmentDetailBinding.inflate(inflater, container, false)
         val arguments = DetailFragmentArgs.fromBundle(requireArguments())
         val application = requireActivity().application
@@ -44,31 +43,47 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-
-
     override fun onPrepareOptionsMenu(menu: Menu) {
         val item = menu.findItem(R.id.savePost)
         if (viewModel.article.isBookmarked) {
-            item.setIcon(R.drawable.ic_baseline_bookmarkwhite_24)
+            item.setIcon(R.drawable.bookmarked_black_image)
         }
         super.onPrepareOptionsMenu(menu)
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
         inflater.inflate(R.menu.detail_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.savePost) {
-            viewModel.saveToBookmark()
-            if (viewModel.article.isBookmarked) {
-                item.setIcon(R.drawable.ic_baseline_bookmarkwhite_24)
-            } else {
-                item.setIcon(R.drawable.ic_baseline_bookmark_border_24)
+
+        when (item.itemId) {
+            R.id.savePost -> {
+                viewModel.saveToBookmark()
+                if (viewModel.article.isBookmarked) {
+                    item.setIcon(R.drawable.bookmarked_black_image)
+                } else {
+                    item.setIcon(R.drawable.bookmark_black_bordered)
+                }
+            }
+            R.id.sharePost -> {
+                val shareIntent: Intent = Intent().apply() {
+                    action = Intent.ACTION_SEND
+//                    putExtra(Intent.EXTRA_TEXT,viewModel.article.content)
+//                    putExtra(Intent.EXTRA_TEXT,viewModel.article.url)
+                    putExtra(Intent.EXTRA_STREAM, viewModel.article.urlToImage?.toUri())
+                    type = "image/jpg"
+                }
+                startActivity(Intent.createChooser(
+                    shareIntent,
+                    "Once Upon a News App sharing with you",
+                ))
             }
         }
+
+
         return false
     }
 

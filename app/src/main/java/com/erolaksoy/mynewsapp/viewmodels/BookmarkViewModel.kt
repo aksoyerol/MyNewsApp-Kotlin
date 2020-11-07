@@ -16,6 +16,10 @@ class BookmarkViewModel(application: Application) : AndroidViewModel(application
 
     val database = NewsDatabase.getInstance(application.applicationContext)
     val repo = NewsRepository(database)
+    val showBookmarkList: LiveData<Boolean> = Transformations.map(_bookmarkList) { it ->
+        it.isNotEmpty()
+    }
+
 
     init {
         getDataFromDb()
@@ -45,7 +49,6 @@ class BookmarkViewModel(application: Application) : AndroidViewModel(application
             updateBookmarkedArticle(articleDb)
         }
     }
-
 
 }
 

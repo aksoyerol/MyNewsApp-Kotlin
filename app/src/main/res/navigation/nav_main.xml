@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.erolaksoy.mynewsapp.ui.DetailFragment"
-        android:label="Detail Fragment"
+        android:label="{dynamic_title}"
         tools:layout="@layout/fragment_detail">
         <argument
             android:name="articledb"
@@ -27,9 +27,18 @@
         <action
             android:id="@+id/action_detailFragment_to_news_page"
             app:destination="@id/news_page" />
+        <argument
+            android:name="dynamic_title"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Detail" />
     </fragment>
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.erolaksoy.mynewsapp.ui.BookmarkFragment"
         android:label="BookmarkFragment" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.erolaksoy.mynewsapp.ui.CategoriesFragment"
+        android:label="CategoriesFragment" />
 </navigation>

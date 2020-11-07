@@ -26,11 +26,11 @@ fun List<Article>.asArticleDb(): List<ArticleDb> {
         ArticleDb(
             author = it.author,
             content = it.content,
-            description = it.description,
-            publishedAt = it.publishedAt,
-            title = it.title,
+            description = it.description?:"",
+            publishedAt = it.publishedAt?:"",
+            title = it.title?:"",
             urlToImage = it.urlToImage,
-            url = it.url
+            url = it.url?:""
         )
     }
 }

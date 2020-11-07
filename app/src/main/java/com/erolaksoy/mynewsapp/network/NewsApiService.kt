@@ -14,12 +14,18 @@ interface NewsApiService {
     @GET("everything?q=bbc&pageSize=100&apiKey=$API_KEY")
     suspend fun getAllNews(): ApiResponseModel
 
-    @GET("everything?")
+    @GET("everything?apiKey=$API_KEY")
     suspend fun getAllWithQuery(
-        @Query("q") subjectKeyword: String,
+        @Query("q") q: String,
         @Query("pageSize") pageSize: Int = 100,
-        @Query("apiKey")apiKey: String = "1eee93a0cbe942039dde9491e9649435"
+
     ): ApiResponseModel
+
+    @GET("top-headlines?apiKey=$API_KEY")
+    suspend fun getCategoriesList(
+        @Query("category") category: String
+    ) : ApiResponseModel
+
 }
 
 object NewsApiServiceBuilder {
@@ -28,7 +34,7 @@ object NewsApiServiceBuilder {
         .addConverterFactory(MoshiConverterFactory.create())
         .build()
 
-    val newsApiService : NewsApiService by lazy {
+    val newsApiService: NewsApiService by lazy {
         retrofit.create(NewsApiService::class.java)
     }
 

@@ -17,5 +17,7 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
+    <string name="navmenu_news_page">News</string>
+    <string name="navmenu_settings_page">Settings</string>
 
 </resources>

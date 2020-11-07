@@ -28,6 +28,12 @@ class NewsRepository(private val database: NewsDatabase) {
         }
     }
 
+    suspend fun refreshDataRoom(): LiveData<List<ArticleDb>> {
+        return withContext(Dispatchers.IO) {
+            database.newsDao.getAll()
+        }
+    }
+
     suspend fun updateBookmarkEntity(articleDb: ArticleDb) {
         return withContext(Dispatchers.Default) {
             database.newsDao.updateEntity(articleDb)

@@ -4,12 +4,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.fragment.findNavController
 import com.erolaksoy.mynewsapp.R
 import com.erolaksoy.mynewsapp.adapters.NewsFeedAdapter
@@ -18,9 +15,9 @@ import com.erolaksoy.mynewsapp.adapters.OnLongClickListener
 import com.erolaksoy.mynewsapp.databinding.FragmentNewsBinding
 import com.erolaksoy.mynewsapp.viewmodels.NewsViewModel
 import com.erolaksoy.mynewsapp.viewmodels.NewsViewModelFactory
+import com.google.android.material.snackbar.Snackbar
 
 class NewsFragment : Fragment() {
-
     private val viewModelFactory: NewsViewModelFactory by lazy {
         NewsViewModelFactory(requireActivity().application)
     }
@@ -47,12 +44,13 @@ class NewsFragment : Fragment() {
                 startActivity(callIntent)
             }
         }, OnClickListener {
-            Toast.makeText(requireContext(),"bookmark image clicked",Toast.LENGTH_LONG).show()
             viewModel.updateBookmarkEntity(it)
+            Snackbar.make(requireView(), "Added to bookmark.", Snackbar.LENGTH_SHORT).show()
+
         })
         binding.viewModel = viewModel
         binding.newsRecyclerView.adapter = adapter
-
+        binding.lifecycleOwner = this
         viewModel.data.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
@@ -61,16 +59,26 @@ class NewsFragment : Fragment() {
 
         viewModel.navigateToDetailWithArticle.observe(viewLifecycleOwner, Observer {
             it?.let {
-                val action = NewsFragmentDirections.actionNewsPageToDetailFragment(it)
+                val action =
+                    NewsFragmentDirections.actionNewsPageToDetailFragment(it, it.author.toString())
                 findNavController().navigate(action)
                 viewModel.navigateToDetailWithArticle.value = null
             }
         })
-        binding.lifecycleOwner = this
+
+        viewModel.showBookmarkSnackBar.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                Snackbar.make(requireView(), "${it.message} to bookmark", Snackbar.LENGTH_SHORT)
+                    .show()
+                viewModel.showBookmarkSnackBar.value = null
+            }
+        })
+
         return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        menu.clear()
         inflater.inflate(R.menu.main_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
@@ -81,9 +89,12 @@ class NewsFragment : Fragment() {
 //                Toast.makeText(requireContext(),"red click",Toast.LENGTH_LONG).show()
 //                item.isChecked = !item.isChecked
 //            }
-
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
 

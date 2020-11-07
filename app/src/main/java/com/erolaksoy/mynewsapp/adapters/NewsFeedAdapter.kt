@@ -14,7 +14,7 @@ import com.erolaksoy.mynewsapp.models.Article
 class NewsFeedAdapter(
     private val clickListener: OnClickListener,
     private val longClickListener: OnLongClickListener,
-    private val bookmarkClickListener : OnClickListener
+    private val bookmarkClickListener: OnClickListener,
 ) :
     ListAdapter<ArticleDb, NewsFeedAdapter.ViewHolder>(MyDiffUtil()) {
 
@@ -34,9 +34,10 @@ class NewsFeedAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        if(item.isBookmarked){
+        if (item.isBookmarked)
             holder.bookmarkImage.setImageResource(R.drawable.bookmarked_black_image)
-        }
+        else
+            holder.bookmarkImage.setImageResource(R.drawable.bookmark_black_bordered)
 
         holder.itemView.setOnClickListener {
             clickListener.onClick(item)
@@ -44,9 +45,9 @@ class NewsFeedAdapter(
 
         holder.bookmarkImage.setOnClickListener {
             bookmarkClickListener.onBookmarkClick(item)
-            if(item.isBookmarked){
+            if (item.isBookmarked) {
                 holder.bookmarkImage.setImageResource(R.drawable.bookmarked_black_image)
-            }else{
+            } else {
                 holder.bookmarkImage.setImageResource(R.drawable.bookmark_black_bordered)
             }
 

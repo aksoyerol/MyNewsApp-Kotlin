@@ -4,8 +4,17 @@
     <item
         android:id="@+id/savePost"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_bookmark_border_24"
+        android:icon="@drawable/bookmark_black_bordered"
         app:showAsAction="always"
+        android:iconTint="@color/white"
         android:title="Bookmark">
     </item>
+
+    <item
+        android:id="@+id/sharePost"
+        android:enabled="true"
+        android:icon="@drawable/share_icon_24"
+        app:showAsAction="always"
+        android:title="Share"/>
+
 </menu>
