@@ -37,26 +37,24 @@ class CategoryListFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
         val binding = FragmentCategorylistBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         viewModel.getData(newsCategory!!)
-
+        binding.lifecycleOwner = this
         val adapter = NewsFeedAdapter(OnClickListener { }, OnLongClickListener { },
             OnClickListener { })
-
         binding.newsRecyclerViews.adapter = adapter
         viewModel.data.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
+
         return binding.root
-
     }
-
 }

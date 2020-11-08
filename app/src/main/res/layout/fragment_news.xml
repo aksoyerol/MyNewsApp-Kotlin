@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.NewsFragment">
 
-<data>
-    <variable
-        name="viewModel"
-        type="com.erolaksoy.mynewsapp.viewmodels.NewsViewModel" />
-</data>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.erolaksoy.mynewsapp.viewmodels.NewsViewModel" />
+    </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ProgressBar
+            bindStatus="@{viewModel.loadingStatus}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-           />
+            android:layout_gravity="center" />
 
 
         <androidx.recyclerview.widget.RecyclerView

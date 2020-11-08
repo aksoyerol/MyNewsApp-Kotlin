@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.erolaksoy.mynewsapp.database.databaseModels.ArticleDb
 import com.erolaksoy.mynewsapp.database.databaseModels.asArticleDb
+import com.erolaksoy.mynewsapp.enums.FeedLoadingStatus
 import com.erolaksoy.mynewsapp.models.Article
 import com.erolaksoy.mynewsapp.network.NewsApiService
 import com.erolaksoy.mynewsapp.network.NewsApiServiceBuilder
@@ -17,28 +18,22 @@ class CategoriesViewModel : ViewModel() {
     private val _data = MutableLiveData<List<ArticleDb>>()
     val data: LiveData<List<ArticleDb>>
         get() = _data
-    private var api: NewsApiService? = null
 
-    init {
-        api = NewsApiServiceBuilder.newsApiService
-    }
-
+    val loadingStatus = MutableLiveData<FeedLoadingStatus>()
 
     fun getData(categoryName: String) {
         viewModelScope.launch {
+            loadingStatus.value = FeedLoadingStatus.LOADING
             try {
-
-                    val network =
-                        NewsApiServiceBuilder.newsApiService.getCategoriesList(categoryName).articles.asArticleDb()
-                    _data.value = network
-                    println(network)
-
-
+                val articleList =
+                    NewsApiServiceBuilder.newsApiService.getCategoriesList(categoryName).articles.asArticleDb()
+                _data.value = articleList
+                loadingStatus.value = FeedLoadingStatus.LOADED
             } catch (e: Exception) {
                 print(e.localizedMessage)
+                loadingStatus.value = FeedLoadingStatus.FAILED
             }
         }
-
     }
 
 }

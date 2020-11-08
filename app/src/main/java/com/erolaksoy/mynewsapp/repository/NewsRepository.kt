@@ -40,5 +40,11 @@ class NewsRepository(private val database: NewsDatabase) {
         }
     }
 
+    suspend fun getCategoryList(categoryName : String){
+        return withContext(Dispatchers.IO){
+            NewsApiServiceBuilder.newsApiService.getCategoriesList(categoryName).articles.asArticleDb()
+        }
+    }
+
 
 }
